@@ -75,3 +75,7 @@ body {
 #precommand span#blue {
     color: #2672c9;
 }
+
+div[contenteditable]:focus-visible {
+    outline: none;
+}
