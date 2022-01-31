@@ -1,4 +1,0 @@
-KrishenK Portfolio [version 10.0.19043.1466]
-(c) KrishenK Corporation. All right reserved.
-
-type "help", "copyright", "credits" or "license" for more information.
