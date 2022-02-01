@@ -98,15 +98,13 @@ div[contenteditable]:focus-visible {
     font-size: 1.325rem;
 }
 
-#more:hover {
-    cursor: pointer;
-}
-
 #more-open,
 #more-open svg {
     height: 1em;
     width: 1em;
     margin: auto;
+    opacity: 1;
+    transition: opacity 1s ease;
 }
 
 #more.open {
@@ -118,13 +116,10 @@ div[contenteditable]:focus-visible {
     animation: closeMore 1s cubic-bezier(0, 0, 1, 0) forwards;
 }
 
-#more.open svg {
-    display: none;
-}
-
 #more-list-container {
     display: flex;
     flex-direction: column;
+    transition: opacity 1s ease, visibility 1s ease;
 }
 
 #more-list-container.hidden,
@@ -133,7 +128,6 @@ div[contenteditable]:focus-visible {
 }
 
 #more-list-container.hidden {
-    width: 0;
     visibility: hidden;
     opacity: 0;
 }
@@ -221,13 +215,23 @@ div[contenteditable]:focus-visible {
 }
 
 #more-footer {
-    margin: auto auto 0 auto;
+    display: flex;
+    width: 100%;
+    height: 1em;
+    padding: .35em 0;
+    margin-top: auto;
+    border-top: 1px solid #4d4d4d;
+}
+
+#more-footer svg {
+    margin: auto;
     height: 1em;
     width: 1em;
 }
 
-#more.open #more-footer svg {
-    display: block !important;
+#more-footer:hover,
+#more-open:hover {
+    cursor: pointer;
 }
 
 /*   Options   */
@@ -240,6 +244,10 @@ div[contenteditable]:focus-visible {
     border-radius: 25px;
     background: #161515;
     transition: all 1s cubic-bezier(0.5, 0.01, 0, 1);
+}
+
+.switch:hover {
+    cursor: pointer;
 }
 
 .switch.on .chk {

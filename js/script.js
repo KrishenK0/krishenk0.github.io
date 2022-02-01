@@ -94,8 +94,7 @@ window.addEventListener('load', () => {
 more.addEventListener('click', (e) => {
     if (e.target == more || e.path.indexOf(moreClose) >= 0 || e.path.indexOf(moreOpen) >= 0) {
         if (!more.classList.contains('open')) {
-            more.classList.add('open');
-            more.classList.remove('close');
+            moreOpen.style.opacity = 0;
         } else {
             moreList.className = 'hidden';
         }
@@ -105,12 +104,28 @@ more.addEventListener('click', (e) => {
 });
 
 more.addEventListener('animationend', () => {
-    moreList.className = 'visible';
+    if (more.classList.contains('open')) {
+        moreList.className = 'visible';
+    } else {
+        moreOpen.style.position = 'initial';
+        moreOpen.style.opacity = 1;
+    }
 });
 
-moreList.addEventListener('animationend', () => {
-    more.classList.remove('open');
-    more.classList.add('close');
+moreOpen.addEventListener('transitionend', () => {
+    if (moreOpen.style.opacity == 0) {
+        console.log('test');
+        more.classList.add('open');
+        more.classList.remove('close');
+        moreOpen.style.position = 'absolute';
+    }
+});
+
+moreList.addEventListener('transitionend', () => {
+    if (moreList.className == 'hidden' && more.classList.contains('open')) {
+        more.classList.remove('open');
+        more.classList.add('close');
+    }
 });
 
 preCode.addEventListener('DOMSubtreeModified', () => {
