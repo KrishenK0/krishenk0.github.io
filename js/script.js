@@ -10,6 +10,7 @@ let more = document.getElementById('more');
 let moreList = document.getElementById('more-list-container');
 let moreClose = document.getElementById('more-footer');
 let moreOpen = document.getElementById('more-open');
+let darkmode = document.getElementById('darkmode-switch');
 
 
 let commands = [];
@@ -78,8 +79,12 @@ let clearCommand = () => {
 }
 
 let upChk = (element) => {
-    if (element.parentNode.classList.contains(element.value)) element.parentNode.classList.remove(element.value)
-    else element.parentNode.classList.add(element.value)
+    if (!element.checked) element.parentNode.classList.remove('on');
+    else element.parentNode.classList.add('on');
+}
+
+let upDarkmode = () => {
+    document.documentElement.setAttribute('data-theme', (darkmode.checked) ? 'dark' : 'light');
 }
 
 
@@ -91,6 +96,8 @@ window.addEventListener('load', () => {
     initCommand();
 });
 
+darkmode.addEventListener('change', upDarkmode);
+
 more.addEventListener('click', (e) => {
     if (e.target == more || e.path.indexOf(moreClose) >= 0 || e.path.indexOf(moreOpen) >= 0) {
         if (!more.classList.contains('open')) {
@@ -98,8 +105,6 @@ more.addEventListener('click', (e) => {
         } else {
             moreList.className = 'hidden';
         }
-    } else {
-        console.log(e.path);
     }
 });
 
@@ -114,7 +119,7 @@ more.addEventListener('animationend', () => {
 
 moreOpen.addEventListener('transitionend', () => {
     if (moreOpen.style.opacity == 0) {
-        console.log('test');
+        moreList.style.display = 'flex';
         more.classList.add('open');
         more.classList.remove('close');
         moreOpen.style.position = 'absolute';
@@ -152,10 +157,10 @@ command.addEventListener('keydown', (e) => {
 
 [...document.querySelectorAll('.switch')].forEach(el => {
     el.addEventListener('click', () => {
-        console.log(el.querySelector('input').checked);
-        if (el.classList.contains('on')) el.querySelector('input').checked = false;
-        else el.querySelector('input').checked = true;
+        // console.log(el.querySelector('input').checked);
+        el.querySelector('input').click();
 
         upChk(el.querySelector('input'));
     });
+    upDarkmode();
 });

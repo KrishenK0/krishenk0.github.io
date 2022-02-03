@@ -3,6 +3,11 @@
     src: url("/font/UbuntuMono-Regular.ttf") format("ttf");
 }
 
+@font-face {
+    font-family: 'Roboto';
+    src: url("/font/Roboto-Regular.ttf") format("ttf");
+}
+
 :root {
     --background-img: url('../img/hover.png');
     --background-color: #000000;
@@ -28,6 +33,7 @@ html,
 body {
     background: var(--background-img, url('../img/hover.png')), var(--background-color, #f0f0f0);
     color: var(--text-color, #141414);
+    font-family: 'Roboto', monospace;
     padding: 0;
     margin: 0;
 }
@@ -104,22 +110,23 @@ div[contenteditable]:focus-visible {
     width: 1em;
     margin: auto;
     opacity: 1;
-    transition: opacity 1s ease;
+    transition: opacity .5s ease;
 }
 
 #more.open {
-    animation: openMore 1s cubic-bezier(0, 0, 1, 0) forwards;
+    animation: openMore .75s cubic-bezier(0, 0, 1, 0) forwards;
     border-radius: 25px;
 }
 
 #more.close {
-    animation: closeMore 1s cubic-bezier(0, 0, 1, 0) forwards;
+    animation: closeMore .75s cubic-bezier(0, 0, 1, 0) forwards;
 }
 
 #more-list-container {
-    display: flex;
+    display: none;
     flex-direction: column;
-    transition: opacity 1s ease, visibility 1s ease;
+    transition: opacity .5s ease, visibility .5s ease;
+    width: 100%;
 }
 
 #more-list-container.hidden,
@@ -133,7 +140,6 @@ div[contenteditable]:focus-visible {
 }
 
 #more-list-container.visible {
-    width: 100%;
     visibility: visible;
     opacity: 1;
 }
@@ -166,7 +172,7 @@ div[contenteditable]:focus-visible {
 
 @keyframes openMore {
     from {
-        width: 0%;
+        width: 1em;
         height: 1em;
     }
 
@@ -202,10 +208,12 @@ div[contenteditable]:focus-visible {
         height: 1em;
         border-radius: 25px;
     }
+
     90% {
         width: 1em;
         border-radius: 25px;
     }
+
     to {
         border-radius: 50%;
         width: 1em;
