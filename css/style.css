@@ -96,14 +96,15 @@ body {
 
 #command {
     min-width: 100%;
+    position: relative;
 }
 
 #command::after {
     content: '';
-    width: 5px;
+    width: 6px;
     height: 15px;
     background: white;
-    position: fixed;
+    position: absolute;
     animation: placeholder 1s infinite;
 }
 
@@ -325,12 +326,12 @@ div[contenteditable]:focus-visible {
     width: 15px;
     background: #8b8b8b;
     border-radius: 50%;
-    right: 0;
+    left: 0;
     transition: all 1s cubic-bezier(0.5, 0.01, 0, 1);
 }
 
 .switch.on .chk::before {
     background: #004eff;
-    right: 100%;
-    transform: translateX(15px);
+    left: 100%;
+    transform: translateX(-15px);
 }

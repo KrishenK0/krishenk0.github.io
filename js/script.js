@@ -1,5 +1,5 @@
 let shell = `[c color="orange"]KrishenK Portfolio[/c] [version 10.0.19043.1466]
-(c) KrishenK Corporation. All right reserved.
+(c) KrishenK 2022. All right reserved.
 
 type "help", "copyright", "credits" or "license" for more information.\n`;
 
@@ -11,6 +11,22 @@ let moreList = document.getElementById('more-list-container');
 let moreClose = document.getElementById('more-footer');
 let moreOpen = document.getElementById('more-open');
 let darkmode = document.getElementById('darkmode-switch');
+
+let colors = [
+    'blue',
+    'indigo',
+    'purple',
+    'pink',
+    'red',
+    'orange',
+    'yellow',
+    'green',
+    'teal',
+    'cyan',
+    'white',
+    'gray',
+    'gray-dark',
+]
 
 
 let commands = [];
@@ -26,12 +42,12 @@ let decode = (text) => {
 
     ];
     let result = [
-        '<span style="color:var(--$1, $1);">$2</span>',
+        '<span style="color:$1;">$2</span>',
     ];
     for (let row of rows) {
         if (group = row.matchAll(new RegExp(regex.join(''), 'gi'))) {
             [...group].forEach(match => {
-                row = row.replace('[' + match[0], result[0].replaceAll('$1', match[2].slice(1, -1)).replace('$2', match[3].slice(0, -2)));
+                row = row.replace('[' + match[0], result[0].replaceAll('$1', (colors.includes(match[2].slice(1, -1))) ? `var(--${match[2].slice(1, -1)}, ${match[2].slice(1, -1)})` : match[2].slice(1, -1)).replace('$2', match[3].slice(0, -2)));
             });
         }
         decoded += row + '\n';
@@ -40,7 +56,7 @@ let decode = (text) => {
     return decoded;
 };
 
-let execute = (commandStr) => {
+let execute = async (commandStr) => {
     // console.log(commandStr);
     isFound = false;
     shell += `\n[c color="#ffa500"]guest[/c]@[c color="#2672c9"]github[/c] [c color="#ffa500"]~[/c] $ ${commandStr}`;
@@ -50,6 +66,7 @@ let execute = (commandStr) => {
 
         // console.log(command, command.name);
         if (command.name == commandStr) {
+            shell += '\n';
             command.callback();
             isFound = true;
             clearCommand();
@@ -63,7 +80,9 @@ let execute = (commandStr) => {
 }
 
 let initCommand = () => {
-    commands.push(new Command("help", () => { printShell('test'); }));
+    commands.push(new Command("help", help));
+    commands.push(new Command("credits", () => { printShell('author : KrishenK\nType "projects" or "products" to see all my projects and realizations.'); }));
+    commands.push(new Command("license", () => { printShell('(c) KrishenK 2022. All right reserved.'); }));
 }
 
 let printShell = (text) => {
@@ -76,6 +95,12 @@ let updateShell = () => {
 
 let clearCommand = () => {
     command.innerHTML = '&lrm;';
+}
+
+let help = () => {
+    commands.forEach(command => {
+        shell += `${command.name}\t: some description.\n`;
+    });
 }
 
 let upChk = (element) => {
