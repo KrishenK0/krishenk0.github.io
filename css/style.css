@@ -93,6 +93,10 @@ body {
     font-family: 'Ubuntu Mono', monospace;
 }
 
+pre[data-colors='false'] * {
+    color: inherit !important;
+}
+
 
 #command {
     min-width: 100%;

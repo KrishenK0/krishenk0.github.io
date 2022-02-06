@@ -11,6 +11,7 @@ let moreList = document.getElementById('more-list-container');
 let moreClose = document.getElementById('more-footer');
 let moreOpen = document.getElementById('more-open');
 let darkmode = document.getElementById('darkmode-switch');
+let colorsSwitch = document.getElementById('colors-switch');
 
 let colors = [
     'blue',
@@ -66,7 +67,6 @@ let execute = async (commandStr) => {
 
         // console.log(command, command.name);
         if (command.name == commandStr) {
-            shell += '\n';
             command.callback();
             isFound = true;
             clearCommand();
@@ -81,12 +81,12 @@ let execute = async (commandStr) => {
 
 let initCommand = () => {
     commands.push(new Command("help", help));
-    commands.push(new Command("credits", () => { printShell('author : KrishenK\nType "projects" or "products" to see all my projects and realizations.'); }));
-    commands.push(new Command("license", () => { printShell('(c) KrishenK 2022. All right reserved.'); }));
+    commands.push(new Command("credits", () => { printShell('author : KrishenK\nType "projects" or "products" to see all my projects and realizations.\n'); }));
+    commands.push(new Command("license", () => { printShell('(c) KrishenK 2022. All right reserved.\n'); }));
 }
 
 let printShell = (text) => {
-    shell += `\n${text}\n`;
+    shell += `\n${text}`;
 }
 
 let updateShell = () => {
@@ -99,8 +99,9 @@ let clearCommand = () => {
 
 let help = () => {
     commands.forEach(command => {
-        shell += `${command.name}\t: some description.\n`;
+        printShell(`${command.name}\t: some description.`);
     });
+    printShell('');
 }
 
 let upChk = (element) => {
@@ -110,6 +111,10 @@ let upChk = (element) => {
 
 let upDarkmode = () => {
     document.documentElement.setAttribute('data-theme', (darkmode.checked) ? 'dark' : 'light');
+}
+
+let upColors = () => {
+    preCode.setAttribute('data-colors', colorsSwitch.checked);
 }
 
 
@@ -122,6 +127,7 @@ window.addEventListener('load', () => {
 });
 
 darkmode.addEventListener('change', upDarkmode);
+colorsSwitch.addEventListener('change', upColors);
 
 more.addEventListener('click', (e) => {
     if (e.target == more || e.path.indexOf(moreClose) >= 0 || e.path.indexOf(moreOpen) >= 0) {
@@ -188,4 +194,5 @@ command.addEventListener('keydown', (e) => {
         upChk(el.querySelector('input'));
     });
     upDarkmode();
+    upColors();
 });
