@@ -53,7 +53,6 @@ let decode = (text) => {
         }
         decoded += row + '\n';
     }
-    //console.log(decoded);
     return decoded;
 };
 
@@ -83,19 +82,16 @@ let initCommand = () => {
     commands.push(new Command("help", help));
     commands.push(new Command("credits", () => { printShell('author : KrishenK\nType "projects" or "products" to see all my projects and realizations.\n'); }));
     commands.push(new Command("license", () => { printShell('(c) KrishenK 2022. All right reserved.\n'); }));
+    commands.push(new Command("cls", clearShell));
 }
 
-let printShell = (text) => {
-    shell += `\n${text}`;
-}
+let printShell = (text) => { shell += `\n${text}`; }
 
-let updateShell = () => {
-    preCode.innerHTML = decode(shell);
-}
+let updateShell = () => { preCode.innerHTML = decode(shell); }
 
-let clearCommand = () => {
-    command.innerHTML = '&lrm;';
-}
+let clearCommand = () => { command.innerHTML = '&lrm;'; }
+
+let clearShell = () => { preCode.innerHTML = shell = ''; }
 
 let help = () => {
     commands.forEach(command => {
