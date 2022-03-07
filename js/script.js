@@ -79,10 +79,10 @@ let execute = async (commandStr) => {
 }
 
 let initCommand = () => {
-    commands.push(new Command("help", help));
-    commands.push(new Command("credits", () => { printShell('author : KrishenK\nType "projects" or "products" to see all my projects and realizations.\n'); }));
-    commands.push(new Command("license", () => { printShell('(c) KrishenK 2022. All right reserved.\n'); }));
-    commands.push(new Command("cls", clearShell));
+    commands.push(new Command("help", help, "Show every commands available"));
+    commands.push(new Command("credits", () => printShell('author : KrishenK\nType "projects" or "products" to see all my projects and realizations.\n'), "Show the credits"));
+    commands.push(new Command("license", () => printShell('(c) KrishenK 2022. All right reserved.\n'), "Show the license used"));
+    commands.push(new Command("cls", clearShell, "Clear the terminal"));
 }
 
 let printShell = (text) => { shell += `\n${text}`; }
@@ -95,7 +95,7 @@ let clearShell = () => { preCode.innerHTML = shell = ''; }
 
 let help = () => {
     commands.forEach(command => {
-        printShell(`${command.name}\t: some description.`);
+        printShell(`${command.name}\t: ${command.description}`);
     });
     printShell('');
 }
@@ -121,6 +121,8 @@ window.addEventListener('load', () => {
     updateShell();
     initCommand();
 });
+
+window.addEventListener('keydown', () => command.focus() )
 
 darkmode.addEventListener('change', upDarkmode);
 colorsSwitch.addEventListener('change', upColors);
